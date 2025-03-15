@@ -86,13 +86,20 @@ typedef struct _ENetAddress
 {
    ENetAddressType type;
    enet_uint16 port;
-   union 
+   union Host
    {
        enet_uint8 v4[4];
        enet_uint16 v6[8];
+       enet_uint32 v4_uint32;
+
+       Host& operator=(enet_uint32 value) {
+          v4_uint32 = value;
+          return *this;
+       }
    } host;
 } ENetAddress;
 
+#define ENET_HOST_ANY       0
 #define ENET_PORT_ANY       0
 
 /**
